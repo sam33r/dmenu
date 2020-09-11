@@ -7,6 +7,7 @@ static const char *fonts[] = {
 	"Iosevka Sparkle:size=11"
 };
 static const char *prompt      = NULL;      /* -p  option; prompt to the left of input field */
+static const char *dynamic     = NULL;      /* -dy option; dynamic command to run on input change */
 static const char *colors[SchemeLast][2] = {
 	/*     fg         bg       */
 	[SchemeNorm] = { "#333", "#fff" },
