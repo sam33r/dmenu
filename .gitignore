@@ -1,0 +1,6 @@
+/dmenu
+/dmenu.o
+/drw.o
+/*.out
+/*.o
+/stest
