@@ -10,10 +10,10 @@ static const char *prompt      = NULL;      /* -p  option; prompt to the left of
 static const char *dynamic     = NULL;      /* -dy option; dynamic command to run on input change */
 static const char *colors[SchemeLast][2] = {
 	/*     fg         bg       */
-	[SchemeNorm] = { "#333", "#ffffff" },
-	[SchemeSel] = { "#000", "#eee" },
-	[SchemeSelHighlight] = { "#d9002b", "#fff7ba" },
-	[SchemeNormHighlight] = { "#d9002b", "#fff7ba" },
+	[SchemeNorm] = { "#eee", "#303030" },
+	[SchemeSel] = { "#fff", "#616161" },
+	[SchemeSelHighlight] = { "#d9002b", "#dbd484" },
+	[SchemeNormHighlight] = { "#d9002b", "#dbd484" },
 	[SchemeOut] = { "#000000", "#00ffff" },
 };
 /* -l option; if nonzero, dmenu uses vertical list with given number of lines */
