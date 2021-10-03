@@ -548,6 +548,9 @@ keypress(XKeyEvent *ev)
 			XConvertSelection(dpy, (ev->state & ShiftMask) ? clip : XA_PRIMARY,
 			                  utf8, utf8, win, CurrentTime);
 			return;
+    case XK_F:
+      fuzzy = 1 - fuzzy;
+      break;
 		case XK_Left:
 			movewordedge(-1);
 			goto draw;
