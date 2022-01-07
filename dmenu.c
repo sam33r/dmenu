@@ -884,7 +884,8 @@ static void
 usage(void)
 {
 	fputs("usage: dmenu [-bfiv] [-l lines] [-p prompt] [-fn font] [-m monitor] [-h height]\n"
-	      "             [-nb color] [-nf color] [-sb color] [-sf color] [-w windowid]\n" "[-dy command]\n", stderr);
+	      "             [-nb color] [-nf color] [-sb color] [-sf color] [-w windowid]\n" "[-dy command]\n"
+        "             [-it text]\n", stderr);
 	exit(1);
 }
 
@@ -935,7 +936,10 @@ main(int argc, char *argv[])
 			embed = argv[++i];
 		else if (!strcmp(argv[i], "-dy"))  /* dynamic command to run */
 			dynamic = argv[++i];
-		else
+		else if (!strcmp(argv[i], "-it")) {   /* initial text */
+			const char * text = argv[++i];
+			insert(text, strlen(text));
+		} else
 			usage();
 
 	if (!setlocale(LC_CTYPE, "") || !XSupportsLocale())
