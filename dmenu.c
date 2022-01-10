@@ -355,8 +355,10 @@ fuzzymatch(void)
 		for (i = 0, it = matches; it && i < number_of_matches; i++, it = it->right) {
 			fuzzymatches[i] = it;
 		}
-		/* sort matches according to distance */
-		qsort(fuzzymatches, number_of_matches, sizeof(struct item*), compare_distance);
+    if (sort) {
+      /* sort matches according to distance */
+      qsort(fuzzymatches, number_of_matches, sizeof(struct item*), compare_distance);
+    }
 		/* rebuild list of matches */
 		matches = matchend = NULL;
 		for (i = 0, it = fuzzymatches[i];  i < number_of_matches && it && \
@@ -425,12 +427,19 @@ match(void)
 		if (i != tokc && !(dynamic && *dynamic)) /* not all tokens match */
 			continue;
 		/* exact matches go first, then prefixes, then substrings */
-		if (!tokc || !fstrncmp(text, item->text, textsize))
+		if (!tokc || !fstrncmp(text, item->text, textsize)) {
 			appenditem(item, &matches, &matchend);
-		else if (!fstrncmp(tokv[0], item->text, len))
-			appenditem(item, &lprefix, &prefixend);
-		else
-			appenditem(item, &lsubstr, &substrend);
+    } else if (!fstrncmp(tokv[0], item->text, len)) {
+      if (sort)
+			  appenditem(item, &lprefix, &prefixend);
+      else
+ 			  appenditem(item, &matches, &matchend);
+    } else {
+      if (sort)
+        appenditem(item, &lsubstr, &substrend);
+      else
+			  appenditem(item, &matches, &matchend);
+    }
 	}
 	if (lprefix) {
 		if (matches) {
@@ -550,6 +559,9 @@ keypress(XKeyEvent *ev)
 			return;
     case XK_F:
       fuzzy = 1 - fuzzy;
+      break;
+    case XK_S:
+      sort = 1 - sort;
       break;
 		case XK_Left:
 			movewordedge(-1);
@@ -904,6 +916,8 @@ main(int argc, char *argv[])
 			topbar = 0;
 		else if (!strcmp(argv[i], "-f"))   /* grabs keyboard before reading stdin */
 			fast = 1;
+		else if (!strcmp(argv[i], "-s"))   /* sort by match distance */
+			sort = 1;
 		else if (!strcmp(argv[i], "-F"))   /* fuzzy matching */
 			fuzzy = 1;
 		else if (!strcmp(argv[i], "-i")) { /* case-insensitive item matching */
