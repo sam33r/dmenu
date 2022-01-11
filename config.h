@@ -7,7 +7,7 @@ static int sort = 0;                      /* -s option; if 0, don't sort by matc
 
 /* -fn option overrides fonts[0]; default X11 font or font set */
 static const char *fonts[] = {
-	"Iosevka Aile:size=14"
+	"Iosevka Medium:size=14"
 };
 static const char *prompt      = NULL;      /* -p  option; prompt to the left of input field */
 static const char *dynamic     = NULL;      /* -dy option; dynamic command to run on input change */
